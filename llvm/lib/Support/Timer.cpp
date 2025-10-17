@@ -33,7 +33,15 @@
 #include <unistd.h>
 #endif
 
-#ifdef HAVE_PROC_PID_RUSAGE
+#if defined(HAVE_PROC_PID_RUSAGE)
+#  if defined(__has_include)
+#    if !__has_include(<libproc.h>)
+#      undef HAVE_PROC_PID_RUSAGE
+#    endif
+#  endif
+#endif
+
+#if defined(HAVE_PROC_PID_RUSAGE)
 #include <libproc.h>
 #endif
 

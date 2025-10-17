@@ -186,9 +186,6 @@ void llvm::set_thread_name(const Twine &Name) {
   if (get_max_thread_name_length() > 0)
     NameStr = NameStr.take_back(get_max_thread_name_length() - 1);
   (void)NameStr;
-#if defined(HAVE_PTHREAD_SET_NAME_NP)
-  ::pthread_set_name_np(::pthread_self(), NameStr.data());
-#elif defined(HAVE_PTHREAD_SETNAME_NP)
 #if defined(__NetBSD__)
   ::pthread_setname_np(::pthread_self(), "%s",
                        const_cast<char *>(NameStr.data()));
@@ -196,7 +193,6 @@ void llvm::set_thread_name(const Twine &Name) {
   ::pthread_setname_np(NameStr.data());
 #else
   ::pthread_setname_np(::pthread_self(), NameStr.data());
-#endif
 #endif
 }
 

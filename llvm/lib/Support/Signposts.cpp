@@ -11,6 +11,15 @@
 #include "llvm/Config/config.h"
 
 #if LLVM_SUPPORT_XCODE_SIGNPOSTS
+#  if defined(__has_include)
+#    if !__has_include(<Availability.h>) || !__has_include(<os/signpost.h>)
+#      undef LLVM_SUPPORT_XCODE_SIGNPOSTS
+#      define LLVM_SUPPORT_XCODE_SIGNPOSTS 0
+#    endif
+#  endif
+#endif
+
+#if LLVM_SUPPORT_XCODE_SIGNPOSTS
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/Support/Mutex.h"
 #include <Availability.h>

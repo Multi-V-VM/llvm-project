@@ -26,7 +26,17 @@
 #include <malloc.h>
 #endif
 #if defined(HAVE_MALLCTL)
-#include <malloc_np.h>
+#  if defined(__has_include)
+#    if __has_include(<malloc_np.h>)
+#      include <malloc_np.h>
+#    elif __has_include(<jemalloc/jemalloc.h>)
+#      include <jemalloc/jemalloc.h>
+#    else
+#      undef HAVE_MALLCTL
+#    endif
+#  else
+#    include <malloc_np.h>
+#  endif
 #endif
 #ifdef HAVE_MALLOC_MALLOC_H
 #include <malloc/malloc.h>

@@ -31,7 +31,15 @@
 #include <cstring>
 #include <tuple>
 
-#ifdef HAVE_CRASHREPORTERCLIENT_H
+#if defined(HAVE_CRASHREPORTERCLIENT_H)
+#  if defined(__has_include)
+#    if !__has_include(<CrashReporterClient.h>)
+#      undef HAVE_CRASHREPORTERCLIENT_H
+#    endif
+#  endif
+#endif
+
+#if defined(HAVE_CRASHREPORTERCLIENT_H)
 #include <CrashReporterClient.h>
 #endif
 
