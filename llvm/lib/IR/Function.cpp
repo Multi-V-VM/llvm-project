@@ -62,7 +62,7 @@ using ProfileCount = Function::ProfileCount;
 template class llvm::SymbolTableListTraits<BasicBlock>;
 
 static cl::opt<int> NonGlobalValueMaxNameSize(
-    "non-global-value-max-name-size", cl::Hidden, cl::init(1024),
+    "non-global-value-max-name-size", cl::Hidden, cl::init(16384),
     cl::desc("Maximum size for the name of non-global values."));
 
 extern cl::opt<bool> UseNewDbgInfoFormat;
